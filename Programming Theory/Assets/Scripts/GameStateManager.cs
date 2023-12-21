@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour
 {
     private float incomePerSecond;
     public static float incomeCalculations { get;  set; }
-    [SerializeField] private TextMeshProUGUI incomePerSecondText;
+    private TextMeshProUGUI incomePerSecondText = null;
+    private TextMeshProUGUI moneyBankedText = null;
 
     private static float m_moneyBanked = 0.0f;
     public static float MoneyBanked
@@ -32,11 +34,22 @@ public class GameStateManager : MonoBehaviour
             }
         }
     }
-    [SerializeField] private TextMeshProUGUI moneyBankedText;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            if (incomePerSecondText == null)
+            {
+                incomePerSecondText = GameObject.Find("Income Text").GetComponent<TextMeshProUGUI>();
+            }
+            if (moneyBankedText == null)
+            {
+                moneyBankedText = GameObject.Find("Money Text").GetComponent<TextMeshProUGUI>();
+            }
+        }
+
         incomePerSecond = 0.0f;
         incomeCalculations = 0.0f;
         MoneyBanked = 0.0f;
@@ -61,7 +74,13 @@ public class GameStateManager : MonoBehaviour
 
     void ChangeUIText()
     {
-        incomePerSecondText.text = ("Income: $" + incomePerSecond + "/sec");
-        moneyBankedText.text = ("Money: $" + MoneyBanked);
+        if (incomePerSecondText != null)
+        {
+            incomePerSecondText.text = ("Income: $" + incomePerSecond + "/sec");
+        }
+        if (moneyBankedText != null)
+        {
+            moneyBankedText.text = ("Money: $" + MoneyBanked);
+        }
     }
 }
