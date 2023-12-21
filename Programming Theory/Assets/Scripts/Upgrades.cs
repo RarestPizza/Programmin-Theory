@@ -10,7 +10,6 @@ public class Upgrades : MonoBehaviour
     [SerializeField] private GameObject buttonObject;
     private Button self;
     [SerializeField] private GameObject buttonReference;
-    private GameStateManager stateManager;
     [SerializeField] private float upgradeCost;
     [SerializeField] private Button[] buttonsToUnlock;
 
@@ -18,7 +17,6 @@ public class Upgrades : MonoBehaviour
     void Start()
     {
         self = GetComponent<Button>();
-        stateManager = GameObject.FindGameObjectWithTag("Game State Manager").GetComponent<GameStateManager>();
     }
 
     // Update is called once per frame
@@ -29,9 +27,9 @@ public class Upgrades : MonoBehaviour
 
     public void OnButtonClicked()
     {
-        if (stateManager.moneyBanked >= upgradeCost)
+        if (GameStateManager.MoneyBanked >= upgradeCost)
         {
-            stateManager.moneyBanked -= upgradeCost;
+            GameStateManager.MoneyBanked -= upgradeCost;
             buttonObject.SetActive(false);
             buttonReference.SetActive(true);
             foreach (var button in buttonsToUnlock)
@@ -43,7 +41,7 @@ public class Upgrades : MonoBehaviour
 
     public void ButtonColorChecker()
     {
-        if (stateManager.moneyBanked < upgradeCost)
+        if (GameStateManager.MoneyBanked < upgradeCost)
         {
             self.image.color = Color.gray;
         }

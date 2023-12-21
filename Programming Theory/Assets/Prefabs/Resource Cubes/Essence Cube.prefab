@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3446753722275983817}
   - component: {fileID: 6419162938066340944}
   - component: {fileID: 1386482077964398605}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Essence Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

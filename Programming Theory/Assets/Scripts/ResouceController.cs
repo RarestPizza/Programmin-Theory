@@ -21,14 +21,20 @@ public class ResouceController : DroppedObjectController
     // Update is called once per frame
     void Update()
     {
+        UpdateResourceText();
+
+        if (transform.position.y <= -10f)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void UpdateResourceText()
+    {
         if (instantiatedDisplayTextPrefab != null)
         {
             displayText.text = ("$" + itemValue);
             instantiatedDisplayTextPrefab.transform.position = transform.position + new Vector3(0, 0, 1f);
-        }
-        if (transform.position.y <= -10f)
-        {
-            Destroy(gameObject);
         }
     }
 }

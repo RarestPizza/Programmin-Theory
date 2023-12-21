@@ -5,11 +5,33 @@ using TMPro;
 
 public class GameStateManager : MonoBehaviour
 {
-    public float incomePerSecond;
-    public float incomeCalculations;
+    private float incomePerSecond;
+    public static float incomeCalculations { get;  set; }
     [SerializeField] private TextMeshProUGUI incomePerSecondText;
 
-    public float moneyBanked;
+    private static float m_moneyBanked = 0.0f;
+    public static float MoneyBanked
+    { 
+        get { return m_moneyBanked; } 
+        
+        set
+        {
+            if (m_moneyBanked + value < 0.0f)
+            {
+                Debug.Log(value);
+            }
+            else if (m_moneyBanked + value < float.MaxValue)
+            {
+                m_moneyBanked = value;
+                Debug.Log(value);
+            }
+            else if (m_moneyBanked + value > float.MaxValue)
+            {
+                m_moneyBanked = float.MaxValue;
+                Debug.Log(value);
+            }
+        }
+    }
     [SerializeField] private TextMeshProUGUI moneyBankedText;
 
     // Start is called before the first frame update
@@ -17,15 +39,14 @@ public class GameStateManager : MonoBehaviour
     {
         incomePerSecond = 0.0f;
         incomeCalculations = 0.0f;
-        moneyBanked = 0.0f;
+        MoneyBanked = 0.0f;
         StartCoroutine(IncomeCalculations());
     }
 
     // Update is called once per frame
     void Update()
     {
-        incomePerSecondText.text = ("Income: $" + incomePerSecond + "/sec");
-        moneyBankedText.text = ("Money: $" + moneyBanked);
+        ChangeUIText();
     }
 
     IEnumerator IncomeCalculations()
@@ -36,5 +57,11 @@ public class GameStateManager : MonoBehaviour
             yield return new WaitForSeconds(1);
             incomePerSecond = Mathf.Abs(previousIncome - incomeCalculations);
         }
+    }
+
+    void ChangeUIText()
+    {
+        incomePerSecondText.text = ("Income: $" + incomePerSecond + "/sec");
+        moneyBankedText.text = ("Money: $" + MoneyBanked);
     }
 }
