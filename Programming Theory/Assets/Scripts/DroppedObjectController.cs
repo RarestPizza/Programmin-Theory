@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class DroppedObjectController : MonoBehaviour
 {
-    private GameStateManager stateManager;
-    [SerializeField] private float itemValue;
-    private Rigidbody body;
+    protected GameStateManager stateManager;
+    [SerializeField] protected float itemValue;
+    protected Rigidbody body;
 
-    void Start()
+    protected void Start()
     {
         stateManager = GameObject.FindGameObjectWithTag("Game State Manager").GetComponent<GameStateManager>();
         body = GetComponent<Rigidbody>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Ground"))
         {
@@ -30,9 +30,8 @@ public class DroppedObjectController : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay(Collision collision)
+    protected void OnCollisionStay(Collision collision)
     {
-        
         if (collision.collider.CompareTag("Belt"))
         {
             body.constraints = body.constraints | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
@@ -42,7 +41,7 @@ public class DroppedObjectController : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    protected void OnCollisionExit(Collision collision)
     {
         if (collision.collider.CompareTag("Belt"))
         {
@@ -50,7 +49,7 @@ public class DroppedObjectController : MonoBehaviour
             body.constraints &= ~body.constraints | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
         }
     }
-    private void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Upgrader"))
         {

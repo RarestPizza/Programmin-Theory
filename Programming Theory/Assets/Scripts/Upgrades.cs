@@ -24,15 +24,7 @@ public class Upgrades : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Use this to check the players money and set the color of the button to grey or white
-        if (stateManager.moneyBanked < upgradeCost)
-        {
-            self.image.color = Color.gray;
-        }
-        else
-        {
-            self.image.color = Color.white;
-        }
+        ButtonColorChecker();
     }
 
     public void OnButtonClicked()
@@ -46,6 +38,18 @@ public class Upgrades : MonoBehaviour
             {
                 button.gameObject.SetActive(true);
             }
+        }
+    }
+
+    public void ButtonColorChecker()
+    {
+        if (stateManager.moneyBanked < upgradeCost)
+        {
+            self.image.color = Color.gray;
+        }
+        else
+        {
+            self.image.color = Color.white;
         }
     }
 }
