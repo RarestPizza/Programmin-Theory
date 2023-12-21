@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7714800840125210138}
   - component: {fileID: 5233240693152617729}
   - component: {fileID: -4037516178017054840}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ore Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
