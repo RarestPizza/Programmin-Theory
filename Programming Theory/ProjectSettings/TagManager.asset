@@ -8,6 +8,7 @@ TagManager:
   - Belt
   - Drop Point
   - Upgrader
+  - Ground
   layers:
   - Default
   - TransparentFX
